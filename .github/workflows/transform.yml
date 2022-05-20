@@ -1,0 +1,48 @@
+name: Transform Figma Tokens to CSS using Style Dictionary
+
+# Controls when the workflow will run
+on: [push, pull_request]
+
+# Jobs
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node.js Env
+        uses: actions/setup-node@v2.4.0
+
+      # Install Dependencies
+      - run: npm install
+
+      # Transform to CSS with SD
+      - run: npm run transform2CSS
+
+      # Get the Latest Tag
+      - name: Get Latest Tag
+        uses: actions-ecosystem/action-get-latest-tag@v1
+        id: latestTag
+        with:
+          initial_version: "v1.0.0"
+          with_initial_version: true
+
+      # Create version.json
+      # - name: Create version.json
+      #   id: createVersionJson
+      #   uses: jsdaniell/create-json@1.1.2
+      #   with:
+      #     name: "version.json"
+      #     json: ${{ steps.latestTag.outputs.tag }}
+      #     dir: "dist/"
+
+      # Add files that were created.
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: transformed FT to CSS with SD
+
+      - name: Create an incremental release
+        uses: actions-ecosystem/action-bump-semver@v1
+        id: increaseTag
+        with:
+          current_version: ${{ steps.latestTag.outputs.tag }}

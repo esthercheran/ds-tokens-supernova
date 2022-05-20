@@ -264,6 +264,5 @@ const themeOutput = themeMeta.map(theme => {
   };
 });
 
-
 console.log('\n==============================================');
 console.log('\nBuild completed!');

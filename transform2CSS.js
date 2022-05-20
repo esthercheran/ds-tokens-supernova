@@ -245,7 +245,7 @@ function getStyleDictionaryConfig(themeName, themeTokenSets) {
         buildPath: `dist/css/`,
         files: [
           {
-            destination: `${themeName}.css`,
+            destination: `${convertToSafeThemeName(themeName)}.css`,
             format: 'css/variables',
             selector: `.${convertToSafeThemeName(themeName)}`,
           },
@@ -256,7 +256,7 @@ function getStyleDictionaryConfig(themeName, themeTokenSets) {
 }
 
 function convertToSafeThemeName(themeName) {
-  const safeName = themeName.replace(/[^a-zA-Z ]/g, "");
+  const safeName = themeName.replace(' ', '-').replace(/[^0-9a-zA-Z-]/g, "");
   return safeName;
 }
 

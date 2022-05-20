@@ -146,7 +146,7 @@ StyleDictionary.registerTransform({
   name: 'size/px',
   type: 'value',
   transitive: true,
-  matcher: token => ['fontSizes', 'dimension', 'borderRadius', 'borderWidth', 'spacing'].includes(token.type),
+  matcher: token => ['fontSizes', 'dimension', 'borderRadius', 'borderWidth', 'spacing', 'sizing'].includes(token.type),
   transformer: token => transformDimension(token.value),
 });
 

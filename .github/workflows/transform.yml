@@ -3,6 +3,8 @@ name: Transform Figma Tokens to CSS using Style Dictionary
 # Controls when the workflow will run
 on: [push, pull_request]
 
+permissions: write-all
+
 # Jobs
 jobs:
   build:
@@ -27,22 +29,30 @@ jobs:
           initial_version: "v1.0.0"
           with_initial_version: true
 
-      # Create version.json
-      # - name: Create version.json
-      #   id: createVersionJson
-      #   uses: jsdaniell/create-json@1.1.2
-      #   with:
-      #     name: "version.json"
-      #     json: ${{ steps.latestTag.outputs.tag }}
-      #     dir: "dist/"
+      - name: Create an incremental tag
+        uses: actions-ecosystem/action-bump-semver@v1
+        id: increasedTag
+        with:
+          current_version: ${{ steps.latestTag.outputs.tag }}
+          level: patch
 
-      # Add files that were created.
-      - uses: stefanzweifel/git-auto-commit-action@v4
+      - name: Create version.json
+        id: createVersionJson
+        uses: jsdaniell/create-json@1.1.2
+        with:
+          name: "version.json"
+          json: '{ "version": "${{ steps.increasedTag.outputs.new_version }}" }'
+          dir: "dist/"
+
+      # Give write access to repo
+      - run: sudo chown -R $USER:$USER ${{ github.workspace }}
+
+      - name: Commit the changes
+        uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: transformed FT to CSS with SD
 
-      - name: Create an incremental release
-        uses: actions-ecosystem/action-bump-semver@v1
-        id: increaseTag
+      - name: Push new tag
+        uses: actions-ecosystem/action-push-tag@v1
         with:
-          current_version: ${{ steps.latestTag.outputs.tag }}
+          tag: ${{ steps.increasedTag.outputs.new_version }}

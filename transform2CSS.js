@@ -87,7 +87,8 @@ function transformLetterSpacing(value) {
  */
 function transformFontWeights(value) {
   const mapped = fontWeightMap[value.toLowerCase()];
-  return `${mapped}`;
+  // return `${mapped}`;
+  return mapped ? `${mapped}` : value;
 }
 
 /**

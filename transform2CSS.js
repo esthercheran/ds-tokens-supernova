@@ -247,12 +247,17 @@ function getStyleDictionaryConfig(themeName, themeTokenSets) {
           {
             destination: `${themeName}.css`,
             format: 'css/variables',
-            selector: `.${themeName}`,
+            selector: `.${convertToSafeThemeName(themeName)}`,
           },
         ],
       },
     },
   };
+}
+
+function convertToSafeThemeName(themeName) {
+  const safeName = themeName.replace(/[^a-zA-Z ]/g, "");
+  return safeName;
 }
 
 const configBlob = fs.readFileSync('sd_config.json');
@@ -263,7 +268,7 @@ const themeMeta = JSON.parse(themeMetaBlob);
 
 const themeOutput = themeMeta.map(theme => {
   const { name: themeName, selectedTokenSets } = theme;
-  const filteredTokenSets = selectedTokenSets ? _.filter(Object.keys(selectedTokenSets), key => selectedTokenSets[key] === 'enabled') : [];
+  const filteredTokenSets = selectedTokenSets ? _.filter(Object.keys(selectedTokenSets), key => selectedTokenSets[key] !== 'disabled') : [];
   const themeTokenSets = _.map(filteredTokenSets, set => dirPath + '/' + set + '.json');
   const themeConfig = getStyleDictionaryConfig(themeName, themeTokenSets);
   const SD = StyleDictionary.extend(themeConfig);

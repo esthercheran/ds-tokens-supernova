@@ -96,8 +96,8 @@
       "shadow": {
         "value": [
           {
-            "x": "0",
-            "y": "0",
+            "x": "{size.0}",
+            "y": "{size.0}",
             "blur": "{size.100}",
             "spread": "0",
             "color": "hsla(0, 0%, 0%, 0.1)",

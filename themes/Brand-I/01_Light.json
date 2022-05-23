@@ -92,11 +92,11 @@
       "shadow": {
         "value": [
           {
-            "x": "{sizing.25}",
-            "y": "{sizing.50}",
-            "blur": "{sizing.250}",
+            "x": "{size.25}",
+            "y": "{size.50}",
+            "blur": "{size.250}",
             "spread": "0",
-            "color": "hsla(0, 0%, 0%, 0.09)",
+            "color": "hsla(0, 0%, 0%, 0.1)",
             "type": "dropShadow"
           }
         ],

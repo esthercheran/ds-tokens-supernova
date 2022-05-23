@@ -1065,7 +1065,7 @@
   --semantic-component-medium: 40px;
   --semantic-component-large: 48px;
   --semantic-component-extra-large: 56px;
-  --semantic-ui-border-radius: 0px;
+  --semantic-ui-border-radius: 100px;
   --semantic-ui-shadow: 0 4 10% 0 hsla(0, 0%, 0%, 0.20);
   --semantic-neutral-fg: #9ca3af;
   --semantic-neutral-emphasised: #6b7280;

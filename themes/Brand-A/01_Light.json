@@ -126,6 +126,10 @@
           }
         ],
         "type": "boxShadow"
+      },
+      "border-radius": {
+        "value": "100",
+        "type": "borderRadius"
       }
     },
     "inputs": {
